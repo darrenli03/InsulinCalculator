@@ -17,8 +17,8 @@ from pydantic import BaseModel
 class insulinCostCalculator(BaseModel):
     glucoseLevel: float
     breakfastGlucose: float
-    lGlucose: float
-    dGlucose: float
+    lunchGlucose: float
+    dinnerGlucose: float
     normBG: float
     BGCorrection: float
     insulinB: float
@@ -26,6 +26,10 @@ class insulinCostCalculator(BaseModel):
     insulinL: float
     LongActing: float
     LongActingDay: float
+    bloodSugarL: float
+    bloodSugarB: float
+    bloodSugarD: float
+    days: float
 
    #add rest of shit here
 
@@ -78,11 +82,11 @@ async def create_item(bruh: insulinCostCalculator):
     dailyPrice = (598/15000) * totInsulin 
 
     #month Calculator
-    days = input("How many days are in the month you'd like to solve for?")
-    monthlyPrice = (dailyPrice * float(days))
+    #days = input("How many days are in the month you'd like to solve for?")
+    monthlyPrice = (dailyPrice * float(bruh.days))
 
     #output
     print("Base on your insulin intake for today, " + str(totInsulin) + " your average daily insulin spending is: " + str(dailyPrice) + " and your monthly insulin spending is: " + str(monthlyPrice) + " for this month.")
 
-    return {totInsulin : float(totInsulin), dailyPrice : float(dailyPrice), monthlyPrice : float(monthlyPrice)}
+    return {"totInsulin" : float(totInsulin), "dailyPrice" : float(dailyPrice), "monthlyPrice" : float(monthlyPrice)}
 
